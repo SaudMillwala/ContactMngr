@@ -33,6 +33,7 @@ $(function () {
     $(document).on("click", "#addNewEmail", function () {
         let emailAddress = $('#newEmailAddress').val();
         let emailAddressType = $('#newEmailAddressType').val();
+        let emailAddressPriority = $('#newEmailAddressPriority').val();
         let emailTypeClass;
 
         if (emailAddressType === "Personal") {
@@ -43,7 +44,7 @@ $(function () {
 
         if (validateEmail(emailAddress)) {
                   $("#emailList").append(
-            '<li class="list-group-item emailListItem" data-email="' + emailAddress + '" data-type="' + emailAddressType + '">' +
+                      '<li class="list-group-item emailListItem" data-email="' + emailAddress + '" data-type="' + emailAddressType + '" data-priority="' + emailAddressPriority + '">' +
             '<span class="badge ' + emailTypeClass + ' m-l-10">' + emailAddressType + '</span>' +
             '<span class="m-l-20">' + emailAddress + ' </span>' +
             '<a class="redText pointer float-right removeEmail" title="Delete Email">X</a>' +
@@ -113,7 +114,8 @@ $(function () {
             return $(".emailListItem").map(function () {
                 return {
                     Email: $(this).data("email"),
-                    Type: $(this).data("type")
+                    Type: $(this).data("type"),
+                    Priority: $(this).data("priority")
                 }
             }).get();
         }
@@ -146,6 +148,11 @@ $(function () {
                 $('#invalidLastNameFeedback').show();
                 isValid = false;
             }
+            if (data.EmailField != "") {
+                $('#newEmailAddress').addClass("invalidInput");
+                $('#unaddedEmailFeedback').show();
+                isValid = false;
+            }
 
             return isValid;
         }
@@ -155,6 +162,7 @@ $(function () {
             Title: $("#editContactTitle").val(),
             FirstName: $("#editContactFirstName").val(),
             LastName: $("#editContactLastName").val(),
+            EmailField: $("#newEmailAddress").val(),
             DOB: $("#editContactDOB").val(),
             Emails: getEmailAddresses(),
             Addresses: getAddresses()
