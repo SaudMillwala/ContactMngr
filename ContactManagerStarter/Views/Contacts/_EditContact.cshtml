@@ -47,6 +47,7 @@
                         foreach (var emailAddress in Model.EmailAddresses)
                         {
                         <li class="list-group-item emailListItem" data-email="@emailAddress.Email" data-type="@emailAddress.Type" data-priority="@emailAddress.Priority">
+                            <input type="radio" name="PrimaryEmail" value="@emailAddress.Priority = @EmailPriority.Primary" id="newEmailAddressPriority" />
                                 @{
                                     if (emailAddress.Type == EmailType.Personal)
                                     {
@@ -57,6 +58,16 @@
                                         <span class="badge badge-success m-l-10"> @emailAddress.Type</span>
                                     }
                                 }
+                            @{
+                                if (emailAddress.Priority == EmailPriority.Primary)
+                                {
+                                    <span class="badge badge-primary m-l-10"> @emailAddress.Priority</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success m-l-10"> @emailAddress.Priority</span>
+                                }
+                            }
 
                                 <span class="m-l-20">@emailAddress.Email</span>
                                 <a class="redText pointer float-right removeEmail" title="Delete Email">X</a>

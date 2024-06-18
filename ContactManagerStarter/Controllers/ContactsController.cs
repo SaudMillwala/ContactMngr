@@ -75,13 +75,13 @@ namespace ContactManager.Controllers
         public async Task<IActionResult> GetContacts()
         {
             var contactList = await _context.Contacts
-                .Include(x => x.EmailAddresses)
                 .OrderBy(x => x.FirstName)
+                .Include(x => x.EmailAddresses)
                 .ToListAsync();
 
             return PartialView("_ContactTable", new ContactViewModel { Contacts = contactList });
         }
-
+        
         public IActionResult Index()
             {
                 return View();

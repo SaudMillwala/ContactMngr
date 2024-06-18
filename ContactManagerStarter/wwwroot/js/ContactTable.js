@@ -58,6 +58,8 @@ $(function () {
         }
     });
 
+    
+
     $(document).on("click", "#addNewAddress", function () {
         let street1 = $('#newAddressStreet1').val();
         let street2 = $('#newAddressStreet2').val();
